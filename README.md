@@ -15,3 +15,5 @@ python manage.py startapp members
 
 
 also install rest framework with this code pip install djangorestframework
+
+thats all
