@@ -1,4 +1,4 @@
-first install python \n
+first install python 
 then go to the cmd
 create a folder called nyscledger
 cd nyscledger
