@@ -138,6 +138,10 @@ def dashboard(request):
 	myppa = ppa.objects.all().count()
 	coR = CorpRegister.objects.all().count()
 	coRz = CorpRegister.objects.all().order_by('cds','firstname').distinct()
+	for x in coRz:
+		txt = str(x.profile)
+		dx = txt.replace("open", "thumbnail")
+		x.profile = dx
 	coRzcount = CorpRegister.objects.all().values('cds').order_by('cds').distinct().count()
 	page = request.GET.get('page', 1)
 	paginator = Paginator(coRz, 20)
@@ -174,6 +178,10 @@ def attendance(request):
 	myppa = ppa.objects.all().count()
 	coR = CorpRegister.objects.all().count()
 	coRz = CorpRegister.objects.values()
+	for x in coRz:
+		txt = str(x.profile)
+		dx = txt.replace("open", "thumbnail")
+		x.profile = dx
 	hist = addattendance.objects.all().count()
 	context = {'corP':coR, 'coRz':coRz, 'ppa':myppa,'hist':hist, 'cds':mycds, 'xd':range(1,32), 'm':month, 'y':range(2022,2090), 'addin':addin }
 	if request.method == "POST":
@@ -267,6 +275,10 @@ def doattendance(request):
 	Onstatuscount = TakeAttendance.objects.filter(day=day,month=month,year=year, status=1).count()
 	Offstatuscount = TakeAttendance.objects.filter(day=day,month=month,year=year, status=0).count()
 	coRz = TakeAttendance.objects.filter(day=day,month=month,year=year).order_by('cds','firstname').all()
+	for x in coRz:
+		txt = str(x.profile)
+		dx = txt.replace("open", "thumbnail")
+		x.profile = dx
 	page = request.GET.get('page', 1)
 	paginator = Paginator(coRz, coRzcount)
 	try:
@@ -476,6 +488,9 @@ def attendance_history(request):
 
 def editregister(request, id):
 	get_id = CorpRegister.objects.get(id=id)
+	txt = str(get_id.profile)
+	dx = txt.replace("open", "thumbnail")
+	get_id.profile = dx
 	gh = CorpRegister.objects.get(id=id)
 	pa = ppa.objects.all().order_by('name').values()
 	ca = cds.objects.all().order_by('name').values()
