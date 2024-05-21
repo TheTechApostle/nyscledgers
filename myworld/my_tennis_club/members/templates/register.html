@@ -1,0 +1,76 @@
+{% extends '_base.html' %}
+{% block content %}
+
+<form method="POST" class="border-solid" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group my-2">
+    		First Name<input type="text" name="firstname" class="form-control" placeholder=" Enter First Name">
+    </div>
+    <div class="form-group my-2">
+        Last Name<input type="text" name="lastname" class="form-control" placeholder=" Enter Last Name">
+    </div>
+    <div class="form-group my-2">
+       State Code<input type="text" name="statecode" class="form-control" placeholder="BN/23B/...">
+    </div>
+    <div class="form-group my-2">
+        State of Origin
+        <select class="form-control" name="sor">
+           {% include 'state.html' %}
+        </select>
+     </div>
+     <div class="form-group my-2">
+        State Deployed
+        <select class="form-control" name="statedeployed">
+           {% include 'state.html' %}
+        </select>
+     </div>
+     
+    <div class="form-group my-2">
+        CDS 
+        <select class="form-control" name="cds">
+            {% for xy in dcds %}
+            <option>{{ xy.statecode }}</option>
+            {% endfor %}
+        </select>
+     </div>
+     <div class="form-group my-2">
+        Post in CDS
+        <select class="form-control" name="pcds">
+           <option>Exco</option>
+           <option>Member</option>
+        </select>
+     </div>
+     <div class="form-group my-2">
+        Phone Number<input type="text" name="phone" class="form-control" placeholder="081...">
+     </div>
+     <div class="form-group my-2">
+        <font class="text-danger" style="font-size:10px">** Kindly upload profile picture with NYSC CREASTED VEST</form>
+        Upload Profile<input type="file" name="profile" class="form-control">
+     </div>
+    <button type="submit" class="btn btn-success py-2 px-2 rounded-sm" name="submit">Submit</button>
+    <button type="reset" class="btn btn-success py-2 px-2 rounded-sm">Clare</button>
+</form>
+<div class="panel panel-success">
+    	
+ </div>
+ 
+      
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="text-primary alert {% if message.tags %} alert-{{ message.tags }}" {% endif %}>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+            
+    
+    
+        
+
+    {% comment %} {% for x in myreg %} {% endcomment %}
+    
+ {% endblock content %}
+    
+

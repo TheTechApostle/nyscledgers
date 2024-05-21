@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html> 
+<html lang="en"> 
+
+<head> 
+	<meta charset="UTF-8"> 
+	<meta http-equiv="X-UA-Compatible"
+		content="IE=edge"> 
+	<meta name="viewport"
+		content="width=device-width, 
+				initial-scale=1.0"> 
+     <script src="{% static 'js/dash.js' %}"></script>
+      <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+      <link rel="stylesheet" href="{% static 'css/dash.css' %}">
+      <link href="{% static 'css/fontawesome.min.css' %}" rel="stylesheet">
+      <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+      <link href="{% static 'fontaw/css/font-awesome.css' %}" rel="stylesheet">
+      <link href="{% static 'fontaw/css/font-awesome.min.css' %}" rel="stylesheet">
+      <script src="https://kit.fontawesome.com/6ec9c7cfba.js"
+            crossorigin="anonymous">
+            
+    </script>
+    <style>
+		#love:hover{
+			color:white;
+		}
+		#love{
+			padding:4px;
+		}
+	</style>
+            
+           {% comment %} <link href="{% static 'src/output.css' %}" rel="stylesheet">    {% endcomment %}
+</head> 
+
+<body> 
+	
+
+
+			
+
+			 {% include "dashshow.html" %}
+
+			<div class="report-container"> 
+				<div class="report-header"> 
+					<h4 class="recent-Articles text-success">Documents</h4> 
+					
+					<div class="col-md-4">
+						<div class="searchbar w-100"> 
+							<input type="text"
+								placeholder="Search"> 
+							<div class="searchbtn"> 
+							<h5><i class="fa fa-search text-white"> </i></h5>
+							</div> 
+						</div> 
+					</div>
+					<div class="col-md-2"></div>
+					<div class="col-md-3 d-flex">
+						<a class="view bg-success w-100" id="love" href="#myModal" data-bs-toggle="modal">
+							<center>Add  New <i class="fa fa-plus"></i></center>
+						</a> 
+						 
+						&nbsp;&nbsp;
+						
+						<select class="form-control">
+							<option>Filter</option>
+							<option>All</option>
+							<option>100</option>
+							<option>200</option>
+							<option></option>
+						</select>
+						
+					</div>
+				</div> 
+
+				<div class="report-body"> 
+					<table class="table table-responsive table-bordered table-striped">
+                        <tr>
+                            <th>S/N</th>
+                            <th>Name</th>
+                            <th>Purpose</th>
+                            <th>File</th>
+                            
+                            <th>
+								Action<br>
+								<!-- <a href="{% url 'export_to_csv' %}">Download <i class="fa fa-download" clas="text-primary"></i></a> -->
+							</th>
+							<th>Status<th>
+                            
+                        </tr>
+                        {% for x in doc %}
+                       
+                        <tr>
+                            <td>{{ forloop.counter }} </td>
+                            <td>{{ x.name }} </td>
+                            <td>{{ x.purpose }} </td>
+                            <td><a href="../../media/{{ x.documenttype }}" download>Download <i class="fa fa-download"></i></a> </td>
+                            
+                            
+                            
+                            
+                            <td>
+                                
+                                <a href='../deleteFile/{{ x.id }}' class="mx-4">
+                                    <i class="text-danger fa fa-trash"></i>
+                                </a>
+                            </td>
+                           
+                            {% if x.status_active == "active" %}
+                             	<td style="background: lightgreen;">
+                             		active
+                            	</td>
+                            {% else %}
+                            	<td style="background: lightpink;">not active</td>
+                            {% endif %}
+
+
+                           
+                            
+                        </tr>
+                        {% endfor %}
+                    </table>
+				</div> 
+			</div> 
+		</div> 
+	</div> 
+    
+	<div id="myModal" class="modal fade">
+        <div class="container">
+    <div class="row">
+        <div class="col-lg-7"></div>
+        <div class="col-lg-5">
+                <div class="modal-dialog">
+                    <br><br><br>
+                    <br>
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            
+                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <br>
+                        <center>
+                                <div class="well">
+                                    <img src="{% static 'img/logo.jpeg' %}" style="border-radius: 100px 100px; width: 60px; height: 60px;">
+                                </div>
+                        <br>
+                        <div class="well">
+                                <h5 class="modal-title">REGISTRATION FORM</h5>
+                               
+                        </div>
+                        </center>
+                        
+                            <div class="modal-body">
+                                <form method="POST" class="border-solid" enctype="multipart/form-data">
+                                    {% csrf_token %}
+								 {{ form.as_div}}
+                                 <button type="submit" class="btn btn-success py-2 px-2 rounded-sm">Register</button>
+    <button type="reset" class="btn btn-success py-2 px-2 rounded-sm">Clare</button>
+                                </form>
+                            </div>
+                            
+                           
+                           
+                          
+                            <div class="modal-footer">
+                                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button> -->
+                                
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<script src="./index.js"></script> 
+	<script src="./index.js"></script> 
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+</body> 
+</html>

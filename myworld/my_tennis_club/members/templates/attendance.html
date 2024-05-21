@@ -1,0 +1,261 @@
+{% load static %}
+<!DOCTYPE html> 
+<html lang="en"> 
+
+<head> 
+	<meta charset="UTF-8"> 
+	<meta http-equiv="X-UA-Compatible"
+		content="IE=edge"> 
+	<meta name="viewport"
+		content="width=device-width, 
+				initial-scale=1.0"> 
+     <script src="{% static 'js/dash.js' %}"></script>
+    
+      <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+      <link rel="stylesheet" href="{% static 'css/dash.css' %}">
+      <link href="{% static 'css/fontawesome.min.css' %}" rel="stylesheet">
+      <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+      <link href="{% static 'fontaw/css/font-awesome.css' %}" rel="stylesheet">
+      <link href="{% static 'fontaw/css/font-awesome.min.css' %}" rel="stylesheet">
+      <script src="https://kit.fontawesome.com/6ec9c7cfba.js"
+            crossorigin="anonymous">
+            
+    </script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        input[type="text"]{
+            border:none;
+        }
+        .th{
+            display:none;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            $(".th").click(function(){
+                $("ju").toggle();
+            });
+        })
+        
+    </script>
+    <script type="text/javascript"> 
+        {% comment %} $(document).on('submit','#task-form',function(e){ 
+            e.preventDefault(); 
+            $.ajax({ 
+                type:'POST', 
+                url:'{% url "doattendance" %}', 
+                data: 
+                { 
+                    task:$("#day").val(), 
+                    task:$("#month").val(), 
+                    task:$("#year").val(), 
+                    task:$("#purpose").val(), 
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val() 
+                }, 
+                success:function(){ 
+                      alert('Added Successfully'); 
+                        } 
+                }) 
+            });  {% endcomment %}
+    </script> 
+           {% comment %} <link href="{% static 'src/output.css' %}" rel="stylesheet">    {% endcomment %}
+</head> 
+
+<body> 
+	
+	
+	<!-- for header part -->
+	
+
+			
+	
+	  
+	  <!-- Modal -->
+	  <div id="myModal" class="modal fade">
+        <div class="container">
+    <div class="row">
+        <div class="col-lg-8"></div>
+        <div class="col-lg-4">
+                <div class="modal-dialog">
+                    <br><br><br>
+                    <br>
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            
+                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <br>
+                        <center>
+                                <div class="well">
+                                    <img src="{% static 'img/logo.jpeg' %}" style="border-radius: 100px 100px; width: 60px; height: 60px;">
+                                </div>
+                        <br>
+                        <div class="well">
+                                <h5 class="modal-title">Add Attendance</h5>
+                               
+                        </div>
+                        </center>
+                        <form method="POST" id="task-form">
+                            {% csrf_token %}
+                            <div class="modal-body">
+                                <br>
+                                <label>Choose Date</label>
+                                <div class="form-group mb-3 d-flex" ng-app="">
+                                    <div class="col-lg-3">
+                                        <div class="d-flex" style="background: #717D7E;">
+                                            <i class="fa fa-calendar p-2 text-white"></i>
+                                            <select type="text" name="day" class="form-control" placeholder="Enter Email" ng-model="name" id="day">
+                                                {% for x in xd %}
+                                                <option>{{ x  }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-4">
+                                        <div class="d-flex" style="background: #717D7E;">
+                                            <i class="fa fa-calendar-cancel p-2 text-white"></i>
+                                            <select type="text" name="month" class="form-control" placeholder="Enter Email" ng-model="name" id="month">
+                                                {% for x in m %}
+                                                <option>{{ x  }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="d-flex" style="background: #717D7E;">
+                                            <i class="fa fa-fa-yandex p-2 text-white"></i>
+                                            <select type="text" name="year" class="form-control" placeholder="Enter Email" ng-model="name" id="year">
+                                                {% for x in y %}
+                                                <option>{{ x  }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div> 
+                                    </div>   
+                                    
+                                </div>
+                                <label>Purpose of Attendance</label>
+                                <div class="d-flex my-2" style="background: #717D7E;">
+                                        <i class="fa fa-lock p-2 text-white"></i>
+                                        <select name="purpose" class="form-control" id="purpose">
+                                            <option>CDS</option>
+                                            <option>Clearance</option>
+                                        </select>
+                                    </div>
+                               </div>
+                            
+                           
+                           
+                          
+                            <div class="modal-footer">
+                                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button> -->
+                                <button type="submit" class="btn btn-success btn-block mt-3" id="loginbtn">Create</button><br>
+                                <br>
+                        {% if messages %}
+                            <div class="logininfo text-dark message mt-3">
+                                {% for message in messages %}
+                                    <div class="alert {% if message.tags %} alert-{{ message.tags }}" {% endif %}>
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	<!-- for header part -->
+	
+
+			{% include "dashshow.html" %}
+
+			<div class="report-container"> 
+				<div class="report-header"> 
+					<h4 class="recent-Articles text-success">Recent Attendance</h4> 
+                   
+					 <select class="form-control" style="width:150px">
+                        {% for x in addin %}
+                        <option><a class="text-my" href="joinatten.html?={{x.day}}-{{ x.month }}-{{ x.year }}">{{x.day}}-{{ x.month }}-{{ x.year }}</a></option>
+                        {% endfor %}
+                     </select>
+                     
+					<a href="#myModal" class="text-white nav-item nav-link view bg-success" data-bs-toggle="modal" style='width:17%'>Add Attendance <i class="fa fa-plus"></i></a> 
+				</div> 
+
+				<div class="report-body"> 
+					<form method="POST" action="save.html">
+						{% csrf_token %}
+						<table class="table sm-responsive table-bordered table-striped text-my">
+							<tr>
+								<th>S/N</th>
+								<th>First Name</th>
+								<th>Last Name</th>
+								<th>Statecode</th>
+								<th>CDS</th>
+								<th>Profile</th>
+								{% comment %} <th>Report</th> {% endcomment %}
+								<th>Action</th>
+								<th>Status</th>
+								
+							</tr>
+							{% for x in coRz %}
+						
+							<tr>
+								<td>{{ forloop.counter }} </td>
+								<td>{{ x.firstname}}</td>
+								<td>{{ x.lastname }} </td>
+								<td>{{ x.statecode }}</td>
+								<td>{{ x.cds }}</td>
+								
+								
+								<td><img src="../../../media/{{ x.profile }}" style="width:30px; height:30px; border-radius:100px"> </td>
+								{% comment %} <td> </td> {% endcomment %}
+								<td>
+									<a href='' class="" data-toggle="modal" data-target="#myModal">
+										<i class="text-success fa fa-eye"></i>
+									</a>
+									&nbsp;&nbsp;
+									<a href='../deleteRegister/{{ x.id }}' class="" data-toggle="modal" data-target="#myModal">
+										<i class="text-danger fa fa-trash"></i>
+									</a>
+								</td>
+								{% if x.status_active == "active" %}
+                                <td style="background: lightgreen;">
+                                    active
+                                </td>
+                            {% else %}
+                                <td style="background: lightpink;">not active</td>
+                            {% endif %}
+							
+								
+							</tr>
+							{% endfor %}
+						</table>
+					</form>
+				</div> 
+			</div> 
+		</div> 
+	</div> 
+
+	  
+</div>
+	  
+	  <!-- Modal -->
+	  
+
+    
+
+	<script src="./index.js"></script> 
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    
+</body> 
+</html>

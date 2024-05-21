@@ -1,0 +1,343 @@
+{% load static %}
+<!DOCTYPE html> 
+<html lang="en"> 
+
+<head> 
+	<meta charset="UTF-8"> 
+	<meta http-equiv="X-UA-Compatible"
+		content="IE=edge"> 
+	<meta name="viewport"
+		content="width=device-width, 
+				initial-scale=1.0"> 
+     <script src="{% static 'js/dash.js' %}"></script>
+      <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+      <link rel="stylesheet" href="{% static 'css/dash.css' %}">
+      <link href="{% static 'css/fontawesome.min.css' %}" rel="stylesheet">
+      <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+      <link href="{% static 'fontaw/css/font-awesome.css' %}" rel="stylesheet">
+      <link href="{% static 'fontaw/css/font-awesome.min.css' %}" rel="stylesheet">
+      <script src="https://kit.fontawesome.com/6ec9c7cfba.js"
+            crossorigin="anonymous">
+            
+    </script>
+    
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#df").click(function(){
+    $("#p").toggle();
+  });
+});
+</script>
+    <style>
+        input[type="text"]{
+            border:none;
+            background:none;
+        }
+        .th{
+            display:none;
+        }
+        .active-purple-2 input.form-control[type=text]:focus:not([readonly]) {
+            border-bottom: 1px solid #ce93d8;
+            box-shadow: 0 1px 0 0 #ce93d8;
+          }
+          .active-purple input.form-control[type=text] {
+            border-bottom: 1px solid #ce93d8;
+            box-shadow: 0 1px 0 0 #ce93d8;
+          }
+    </style>
+    <script>
+        $(document).ready(function(){
+            $(".th").click(function(){
+                $("ju").toggle();
+            });
+        })
+
+        
+        
+    </script>
+    <script type="text/javascript"> 
+    const form = document.querySelector("form")
+    const day = document.getElementById("day")
+    const month = document.getElementById("month")
+    const year = document.getElementById("year")
+    const purpose = document.getElementById("purpose")
+    const csrf = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const newform = new FormData();
+        newform.append('day', day.value)
+        newform.append('month', month.value)
+        newform.append('year', year.value)
+        newform.append('purpose', purpose.value)
+        newform.append('csrfmiddlewaretoken', csrf)
+        fetch("{% url 'attendance' %}")
+        method: "POST",
+        body: newform,
+    })
+    </script> 
+           {% comment %} <link href="{% static 'src/output.css' %}" rel="stylesheet">    {% endcomment %}
+    <script type="text/javascript">
+        $('.loveit').click(function(e) {
+    e.preventDefault();
+    var targetUrl = $(this).attr('rel');
+    $.ajax({
+        url: targetUrl,
+        type: "GET",
+        success: function() {
+            alert("done");
+        },
+        error: function() {
+            alert("testing error");
+        },
+    });
+});
+
+
+    </script>
+    <script type="text/javascript">
+        // document.getElementById("click").addEventListener()
+    </script>
+</head> 
+<body>
+
+
+<!-- {{my.month}} -->
+
+<!-- <section class="container-fluid">
+<div class="row bg-success"> 
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <marquee class="text-white"><font color="yellow">NYSC LEDGER SYSTEM</font>- Take attendance Page by CDS Groups</marquee>
+    </div>
+</div>
+<br>
+<div class="row"> 
+    
+    <div class="col-lg-4">
+    <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <form class="form" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group d-flex">
+                            <select class="form-control" name="cds">
+                                <option>CDS</option>
+                                {% for x in cds %}
+                                <option>{{ x.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="submit" value="fetch" class="btn btn-success" name="submit">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>   
+</div>
+</section> -->
+
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2 ml-2 bg-dark">
+            <form class="form-group  mt-5 mb-4" method="POST">
+                <label class="text-white">Filter by CDS</label>
+                <div class="form-group d-flex">
+                    {% csrf_token %}
+                    
+                    <select name="cds" class="form-control p-3 bg-transparent">
+                        {% for x in cds %}
+                        <option><i class="text-white">{{ x.name }}</i></option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" class="btn btn-dark btn-btn-outline-white p-3" style="border: 1px solid lightgray">
+                </div>
+            </form>
+        </div>
+        
+        <div class="col-lg-4 ml-2 mt-5">
+            <div class="card bg-success" style="width:100%;">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <tr>
+                    <td>
+                        <h1>Total Marked  <font style='font-size:26px; float:right' class="m-3 text-success">{{ on }}</font></h1>
+                    </td>
+                    <td></td>
+                </tr>
+              </li>
+              
+            </ul>
+        </div>
+    </div>
+        &nbsp;
+        <div class="col-lg-4 ml-2 mt-5">
+            <div class="card bg-danger" style="width:100%;">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <tr>
+                    <td>
+                        <h1>Total Unmarked  <font style='font-size:26px; float:right' class="m-3 text-danger">{{ off }}</font></h1>
+                    </td>
+                    <td></td>
+                </tr>
+              </li>
+              
+            </ul>
+        </div>
+          </div></div>
+        <div class="col-lg-2"></div>
+    </div>
+</section>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2 bg-dark"></div>
+        <div class="col-lg-8">
+            <div class="jumbotron mt-5">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="md-form active-purple active-purple-2 mb-3 d-flex">
+                        <input class="form-control" type="text" placeholder="Search by Name, Statecode, CDS" aria-label="Search" name="search_query">
+                        <input type="submit" name="submit" value="Search" class="btn btn-success">
+                    </div>
+                </form>
+                <a href="{% url 'attendance' %}"><i class="fa fa-arrow-left"></i></a>
+                <center><h1 class="text-center">Attendance for {{ my.day }} - {{ my.month }} - {{ my.year }}</h1></center>
+                {% comment %} <form method="POST">
+                    {% csrf_token %} {% endcomment %}
+                    
+                    <table class="table table-bordered d-sm-table table-responsive-sm table-striped">
+                        <thead>
+                            <tr>
+                                    <th>S/N</th>
+                                    <th>Firstname</th>
+                                    <th>Lastname</th>
+                                   
+                                    <th>Statecode</th>
+                                    <th>CDS</th>
+                                    <th>Profile</th>
+                                    {% comment %} <th>Report</th> {% endcomment %}
+                                   
+                                    <th>Action</th>
+                                    
+                                    <th>Status</th>
+                                    
+                            </tr>
+                        </thead>
+                        {% if coRz %}
+                            {% for x in coRz %}
+                            <tbody>
+                                <tr>
+                                    <td class="bg-dark text-white">{{ forloop.counter }} </td>
+                                    <td class="">{{ x.firstname}}</td>
+                                    <td>{{ x.lastname }}  </td>
+                                    <td>{{ x.mystatecode }}</td>
+                                    <td>{{ x.cds }}</td>
+                                    {% comment %} <td><input type="text" value="{{ m }}" name=""></td> {% endcomment %}
+                                    
+                                    
+                                    <td><a href="../../../media/{{ x.profile }}"><img src="../../../media/{{ x.profile }}" style="width:30px; height:30px; border-radius:100px"></a> </td>
+                                    {% comment %} <td> </td> {% endcomment %}
+                                    
+                                    {% comment %} <td>
+                                        <div class="" style="width:10%">
+                                            {{x.id}}
+                                            {{my.day}}
+                                            {{my.month}}
+                                            {{my.year}}
+                                        </div> 
+                                    </td> {% endcomment %}
+                                    <td>
+                                        <a href='../submitAttendance/{{ x.user_id }}' id="click" onclick="location.reload()">
+                                            <i class="text-success fa fa-eye"></i>
+                                        </a>
+                                        &nbsp;&nbsp;
+                                        <a href='../deleteRegister/{{ x.id }}' class="" data-toggle="modal" data-target="#myModal">
+                                            <i class="text-danger fa fa-trash"></i>
+                                        </a>
+                                    </td>
+                                    
+                                    {% if x.status == 1 %}
+                                    <td>
+                                        <i class="fa fa-check-square btn btn-success"></i>
+                                    </td>
+                                    {% else %}
+                                    <td>
+                                        <i class="fa fa-minus-square btn btn-danger"></i>
+                                    </td>
+                                    {% endif %}
+                                     
+                                        
+                                    
+                                    
+                                    
+                                
+                                    
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                            <h3>No Record Found</h3>
+                            {% endif %}
+                        </tbody>
+                    </table>
+
+                    {% if coRz.has_other_pages %}
+                      <ul class="pagination">
+                        {% if coRz.has_previous %}
+                          <li><a href="?page={{ users.previous_page_number }}">Prev</a></li>
+                        {% else %}
+                          <li class="disabled"><span>&laquo;</span></li>
+                        {% endif %}
+                        {% for i in coRz.paginator.page_range %}
+                          {% if users.number == i %}
+                            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                          {% else %}
+                            <li><a class="btn btn-default m-2" href="?page={{ i }}">{{ i }}</a></li>
+                          {% endif %}
+                        {% endfor %}
+                        {% if coRz.has_next %}
+                          <li><a class="btn btn-default m-2" href="?page={{ users.next_page_number }}">Next</a></li>
+                        {% else %}
+                          <li class="disabled"><span>&raquo;</span></li>
+                        {% endif %}
+                      </ul>
+                    {% endif %}
+                    {{ query_name }}
+                {% comment %} </form> {% endcomment %}
+            </div>
+        </table>
+    </div>
+</div>
+d
+{% for x in che %}
+{{ x.name }}
+{% endfor %}
+<script src="https://code.jquery.com/jquery-3.5.1.js" 
+          integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" 
+            crossorigin="anonymous"></script> 
+  
+    <script type="text/javascript"> 
+    $(document).on('submit','#task-form',function(e){ 
+        e.preventDefault(); 
+        $.ajax({ 
+            type:'POST', 
+            url:'{% url "doattendance" %}', 
+            data: 
+            { 
+                task:$("#task").val(), 
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val() 
+            }, 
+            success:function(){ 
+                  /*alert('Saved');
+                    } */
+            }) 
+        }); 
+    </script> 
+jj
+    {{ coRzcount }}
+</body>
+</html>
+
+

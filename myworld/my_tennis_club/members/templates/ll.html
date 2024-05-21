@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html> 
+<html lang="en"> 
+
+<head> 
+    <meta charset="UTF-8"> 
+    <meta http-equiv="X-UA-Compatible"
+        content="IE=edge"> 
+    <meta name="viewport"
+        content="width=device-width, 
+                initial-scale=1.0"> 
+    <!-- <meta http-equiv="refresh" content="5"> -->
+     <script src="{% static 'js/dash.js' %}"></script>
+      <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+      <link rel="stylesheet" href="{% static 'css/dash.css' %}">
+      <link href="{% static 'css/fontawesome.min.css' %}" rel="stylesheet">
+      <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+      <link href="{% static 'fontaw/css/font-awesome.css' %}" rel="stylesheet">
+      <link href="{% static 'fontaw/css/font-awesome.min.css' %}" rel="stylesheet">
+      <script src="https://kit.fontawesome.com/6ec9c7cfba.js"
+            crossorigin="anonymous">
+            
+    </script>
+    
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+</script>
+<body>
+
+<sesction class="container">
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-8">
+    
+
+    
+
+<div class="panel panel-success">
+    	
+ </div>
+ 
+      
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="text-primary alert {% if message.tags %} alert-{{ message.tags }}" {% endif %}>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+            
+        {{ coRz.cds }}
+        <table class="table table-bordered d-sm-table table-responsive-sm table-striped">
+            <thead>
+                <tr>
+                        <th>S/N</th>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                       
+                        <th>Statecode</th>
+                        <th>CDS</th>
+                        <th>Profile</th>
+                        {% comment %} <th>Report</th> {% endcomment %}
+                       
+                        <th>Action</th>
+                        
+                        <th>Status</th>
+                        
+                </tr>
+            </thead>
+           
+                {% for x in coRz %}
+                <tbody>
+                    <tr>
+                        <td class="bg-dark text-white">{{ forloop.counter }} </td>
+                        <td class="">{{ x.firstname}}</td>
+                        <td>{{ x.lastname }}  </td>
+                        <td>{{ x.mystatecode }}</td>
+                        <td>{{ x.cds }}</td>
+                        {% comment %} <td><input type="text" value="{{ m }}" name=""></td> {% endcomment %}
+                        
+                        
+                        <td><a href="../../../media/{{ x.profile }}"><img src="../../../media/{{ x.profile }}" style="width:30px; height:30px; border-radius:100px"></a> </td>
+                        {% comment %} <td> </td> {% endcomment %}
+                        
+                        {% comment %} <td>
+                            <div class="" style="width:10%">
+                                {{x.id}}
+                                {{my.day}}
+                                {{my.month}}
+                                {{my.year}}
+                            </div> 
+                        </td> {% endcomment %}
+                        <td>
+                            <a class="loveit" href='../getdone/{{ x.user_id }}'  id="click">
+                                <i class="text-success fa fa-eye"></i>
+                            </a>
+                            &nbsp;&nbsp;
+                            <a href='../deleteRegister/{{ x.id }}' class="" data-toggle="modal" data-target="#myModal">
+                                <i class="text-danger fa fa-trash"></i>
+                            </a>
+                        </td>
+                        
+                        {% if x.status == 1 %}
+                        <td>
+                            <i class="fa fa-check-square btn btn-success"></i>
+                        </td>
+                        {% else %}
+                        <td>
+                            <i class="fa fa-minus-square btn btn-danger"></i>
+                        </td>
+                        {% endif %}
+                         
+                            
+                        
+                        
+                        
+                    
+                        
+                    </tr>
+                    {% endfor %}
+               
+                <h3>No Record Found</h3>
+               
+            </tbody>
+        </table>
+
+        {% if coRz.has_other_pages %}
+          <ul class="pagination">
+            {% if coRz.has_previous %}
+              <li><a href="?page={{ users.previous_page_number }}">Prev</a></li>
+            {% else %}
+              <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in coRz.paginator.page_range %}
+              {% if users.number == i %}
+                <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+              {% else %}
+                <li><a class="btn btn-default m-2" href="?page={{ i }}">{{ i }}</a></li>
+              {% endif %}
+            {% endfor %}
+            {% if coRz.has_next %}
+              <li><a class="btn btn-default m-2" href="?page={{ users.next_page_number }}">Next</a></li>
+            {% else %}
+              <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+          </ul>
+        {% endif %}
+        {{ query_name }}
+    {% comment %} </form> {% endcomment %}
+</div>
+</table>
+</div>
+</div>
+</section>
+        
+
+    {% comment %} {% for x in myreg %} {% endcomment %}
+    
+</body>
+</html>
